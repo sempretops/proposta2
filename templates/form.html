@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Formulário de Proposta</title>
+</head>
+<body>
+  <h1>{% if proposal %}Editar{% else %}Criar{% endif %} Proposta</h1>
+
+  <form method="POST">
+    <label for="number">Número:</label><br>
+    <input type="text" name="number" id="number" value="{% if proposal %}{{ proposal.number }}{% endif %}"><br><br>
+
+    <label for="date">Data:</label><br>
+    <input type="text" name="date" id="date" value="{% if proposal %}{{ proposal.date }}{% endif %}"><br><br>
+
+    <label for="validity">Validade:</label><br>
+    <input type="text" name="validity" id="validity" value="{% if proposal %}{{ proposal.validity }}{% endif %}"><br><br>
+
+    <label for="company_name">Empresa:</label><br>
+    <input type="text" name="company_name" id="company_name" value="{% if proposal %}{{ proposal.company_name }}{% endif %}"><br><br>
+
+    <label for="contact">Contato:</label><br>
+    <input type="text" name="contact" id="contact" value="{% if proposal %}{{ proposal.contact }}{% endif %}"><br><br>
+
+    <label for="product">Produto:</label><br>
+    <input type="text" name="product" id="product" value="{% if proposal %}{{ proposal.product }}{% endif %}"><br><br>
+
+    <label for="quantity">Quantidade:</label><br>
+    <input type="number" name="quantity" id="quantity" value="{% if proposal %}{{ proposal.quantity }}{% endif %}"><br><br>
+
+    <label for="unit_price">Valor Unitário:</label><br>
+    <input type="number" step="any" name="unit_price" id="unit_price" value="{% if proposal %}{{ proposal.unit_price }}{% endif %}"><br><br>
+
+    <button type="submit">Salvar</button>
+  </form>
+
+  <p><a href="/">Voltar para a lista</a></p>
+</body>
+</html>
