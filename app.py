@@ -77,7 +77,7 @@ def delete_proposal(id):
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-     with app.app_context():
+    with app.app_context():
         db.create_all()  # Garante que o banco de dados seja criado antes de rodar o app
     if not os.path.exists("database.db"):
         db.create_all()
