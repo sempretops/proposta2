@@ -142,12 +142,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>{{ descricao }}</td>
-        <td>{{ quantidade }}</td>
-        <td>R$ {{ valor_unitario }}</td>
-        <td>R$ {{ valor_total }}</td>
-      </tr>
+{% for i in range(equipamentos|length) %}
+<tr>
+  <td>{{ equipamentos[i] }}</td>
+  <td>{{ quantidades[i] }}</td>
+  <td>{{ valores_unit[i] }}</td>
+  <td>{{ valores_linha[i] }}</td>
+</tr>
+{% endfor %}
     </tbody>
   </table>
 
