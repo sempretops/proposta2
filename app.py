@@ -21,6 +21,10 @@ class Proposal(db.Model):
     unit_price = db.Column(db.Float, nullable=False)
     total_price = db.Column(db.Float, nullable=False)
 
+# Cria o banco e as tabelas assim que o app é carregado
+with app.app_context():
+    db.create_all()
+
 @app.route('/')
 def index():
     proposals = Proposal.query.all()
@@ -40,14 +44,19 @@ def add_proposal():
         total_price = quantity * unit_price
 
         new_proposal = Proposal(
-            number=number, date=date, validity=validity, company_name=company_name,
-            contact=contact, product=product, quantity=quantity,
-            unit_price=unit_price, total_price=total_price
+            number=number,
+            date=date,
+            validity=validity,
+            company_name=company_name,
+            contact=contact,
+            product=product,
+            quantity=quantity,
+            unit_price=unit_price,
+            total_price=total_price
         )
         db.session.add(new_proposal)
         db.session.commit()
         return redirect(url_for('index'))
-
     return render_template('form.html')
 
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
