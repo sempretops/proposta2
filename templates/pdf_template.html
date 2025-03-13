@@ -1,31 +1,90 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8"/>
   <title>Proposta PDF</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    .titulo { text-align: center; }
-    .label { font-weight: bold; }
-    .campo { margin-bottom: 5px; }
+    /* Definições básicas */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      font-size: 12px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .header img {
+      max-height: 70px;
+      margin-bottom: 10px;
+    }
+    .header .address {
+      margin-bottom: 5px;
+      font-size: 10px;
+    }
+    .header .title {
+      font-size: 14px;
+      font-weight: bold;
+      margin-top: 10px;
+      margin-bottom: 15px;
+    }
+
+    .info {
+      margin-bottom: 10px;
+    }
+    .label {
+      font-weight: bold;
+    }
+    hr {
+      margin: 15px 0;
+    }
+    .section-title {
+      font-weight: bold;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
   </style>
 </head>
 <body>
-  <h1 class="titulo">Proposta para {{ empresa }}</h1>
+  <!-- Cabeçalho com logo e endereço -->
+  <div class="header">
+    <img src="https://revlo.com.br/wp-content/uploads/2024/04/logo-preto.png" alt="Logo Revlo">
+    <div class="address">
+      AVENIDA CALIL MOHAMED RAHAL, 730<br>
+      VILA SÃO SILVESTRE - BARUERI / SP - CEP: 06417-010
+    </div>
+    <div class="title">Proposta de Locação</div>
+  </div>
 
-  <div class="campo"><span class="label">CNPJ/CPF:</span> {{ cnpj }}</div>
-  <div class="campo"><span class="label">Inscrição Estadual:</span> {{ ie }}</div>
-  <div class="campo"><span class="label">Contato:</span> {{ nome_contato }}</div>
-  <div class="campo"><span class="label">E-mail:</span> {{ email }}</div>
-  <div class="campo"><span class="label">Telefone:</span> {{ telefone }}</div>
+  <!-- Informações fixas e datas -->
+  <div class="info">
+    <span class="label">Data da Proposta:</span> {{ data_hoje }}<br>
+    <span class="label">Validade da Proposta (7 dias):</span> {{ data_validade }}<br>
+    <span class="label">E-mail:</span> comercial@revlo.com.br<br>
+    <span class="label">Telefone (WhatsApp):</span> (11) 93217-5978
+  </div>
 
   <hr>
 
-  <h3>Detalhes do Pedido</h3>
-  <div class="campo"><span class="label">Descrição:</span> {{ descricao }}</div>
-  <div class="campo"><span class="label">Quantidade:</span> {{ quantidade }}</div>
-  <div class="campo"><span class="label">Unidade:</span> {{ unidade }}</div>
-  <div class="campo"><span class="label">Valor Unitário (R$):</span> {{ valor_unitario }}</div>
-  <div class="campo"><span class="label">Valor Total (R$):</span> {{ valor_total }}</div>
+  <!-- Campos vindos do formulário -->
+  <div class="info">
+    <h4 class="section-title">Dados do Cliente</h4>
+    <span class="label">Empresa:</span> {{ empresa }}<br>
+    <span class="label">CNPJ/CPF:</span> {{ cnpj }}<br>
+    <span class="label">Inscrição Estadual:</span> {{ ie }}<br>
+    <span class="label">Contato:</span> {{ nome_contato }}<br>
+    <span class="label">E-mail:</span> {{ email }}<br>
+    <span class="label">Telefone:</span> {{ telefone }}
+  </div>
+
+  <div class="info">
+    <h4 class="section-title">Detalhes do Pedido</h4>
+    <span class="label">Descrição:</span> {{ descricao }}<br>
+    <span class="label">Quantidade:</span> {{ quantidade }}<br>
+    <span class="label">Unidade (Loc/Venda):</span> {{ unidade }}<br>
+    <span class="label">Valor Unitário (R$):</span> {{ valor_unitario }}<br>
+    <span class="label">Valor Total (R$):</span> {{ valor_total }}
+  </div>
 </body>
 </html>
