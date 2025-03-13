@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Lista de Propostas</title>
+  </head>
+  <body>
+    <h1>Propostas</h1>
+    <ul>
+      {% for p in proposals %}
+        <li>{{ p.company_name }} - {{ p.total_price }}</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
