@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Proposta PDF</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .titulo { text-align: center; }
+    .label { font-weight: bold; }
+    .campo { margin-bottom: 5px; }
+  </style>
+</head>
+<body>
+  <h1 class="titulo">Proposta para {{ empresa }}</h1>
+
+  <div class="campo"><span class="label">CNPJ/CPF:</span> {{ cnpj }}</div>
+  <div class="campo"><span class="label">Inscrição Estadual:</span> {{ ie }}</div>
+  <div class="campo"><span class="label">Contato:</span> {{ nome_contato }}</div>
+  <div class="campo"><span class="label">E-mail:</span> {{ email }}</div>
+  <div class="campo"><span class="label">Telefone:</span> {{ telefone }}</div>
+
+  <hr>
+
+  <h3>Detalhes do Pedido</h3>
+  <div class="campo"><span class="label">Descrição:</span> {{ descricao }}</div>
+  <div class="campo"><span class="label">Quantidade:</span> {{ quantidade }}</div>
+  <div class="campo"><span class="label">Unidade:</span> {{ unidade }}</div>
+  <div class="campo"><span class="label">Valor Unitário (R$):</span> {{ valor_unitario }}</div>
+  <div class="campo"><span class="label">Valor Total (R$):</span> {{ valor_total }}</div>
+</body>
+</html>
