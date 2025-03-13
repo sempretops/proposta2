@@ -115,6 +115,13 @@ def gerar_pdf():
     unidade = request.form['unidade']
     valor_unitario = request.form['valor_unitario']
     valor_total = request.form['valor_total']
+    request.form['periodo']
+    request.form.get('periodo_personalizado')
+    request.form.getlist('equipamento[]')
+    request.form.getlist('quantidade[]')
+    request.form.getlist('valor_unitario[]')
+    request.form.getlist('valor_total_linha[]')
+    request.form['valor_total_geral']
 
     # Data de hoje e data de validade (7 dias depois)
     data_hoje = datetime.now().strftime('%d/%m/%Y')
