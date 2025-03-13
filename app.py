@@ -102,7 +102,7 @@ def delete_proposal(id):
 # ------------------------------------------------------
 @app.route('/gerar_pdf', methods=['POST'])
 def gerar_pdf():
-    # Captura dados do formulário "index.html" ou outro:
+    # Captura dados do formulário
     empresa = request.form['empresa']
     cnpj = request.form['cnpj']
     ie = request.form['ie']
@@ -115,9 +115,14 @@ def gerar_pdf():
     valor_unitario = request.form['valor_unitario']
     valor_total = request.form['valor_total']
 
-    # Renderiza um template HTML com esses dados
+    # Data de hoje e data de validade (7 dias depois)
+    data_hoje = datetime.now().strftime('%d/%m/%Y')
+    data_validade = (datetime.now() + timedelta(days=7)).strftime('%d/%m/%Y')
+
+    # Render template HTML
     html_str = render_template(
         'pdf_template.html',
+        # Dados do formulário
         empresa=empresa,
         cnpj=cnpj,
         ie=ie,
@@ -128,13 +133,16 @@ def gerar_pdf():
         quantidade=quantidade,
         unidade=unidade,
         valor_unitario=valor_unitario,
-        valor_total=valor_total
+        valor_total=valor_total,
+
+        # Dados fixos e calculados
+        data_hoje=data_hoje,
+        data_validade=data_validade
     )
 
-    # Converte HTML em PDF com WeasyPrint
+    # Gerar PDF
     pdf_file = HTML(string=html_str).write_pdf()
 
-    # Retorna PDF como download
     return send_file(
         io.BytesIO(pdf_file),
         as_attachment=True,
