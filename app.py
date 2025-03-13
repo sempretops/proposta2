@@ -1,18 +1,62 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, send_file
 from flask_sqlalchemy import SQLAlchemy
+from weasyprint import HTML
+import io
 import os
-
-app = Flask(__name__)
-
-@app.route('/pedido', methods=['GET'])
-def pedido_form():
-    return render_template('pedido_form.html')
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
 db = SQLAlchemy(app)
+
+@app.route('/')
+def index():
+    return render_template('index.html')  # Seu formulário
+
+@app.route('/gerar_pdf', methods=['POST'])
+def gerar_pdf():
+    # 1) Capturar dados do formulário
+    empresa = request.form['empresa']
+    cnpj = request.form['cnpj']
+    ie = request.form['ie']
+    nome_contato = request.form['nome_contato']
+    email = request.form['email']
+    telefone = request.form['telefone']
+
+    descricao = request.form['descricao']
+    quantidade = request.form['quantidade']
+    unidade = request.form['unidade']
+    valor_unitario = request.form['valor_unitario']
+    valor_total = request.form['valor_total']
+
+    # 2) Renderizar um template HTML (ex: pdf_template.html) com esses dados
+    html_str = render_template('pdf_template.html',
+        empresa=empresa,
+        cnpj=cnpj,
+        ie=ie,
+        nome_contato=nome_contato,
+        email=email,
+        telefone=telefone,
+        descricao=descricao,
+        quantidade=quantidade,
+        unidade=unidade,
+        valor_unitario=valor_unitario,
+        valor_total=valor_total
+    )
+
+    # 3) Converter HTML em PDF usando WeasyPrint
+    pdf_file = HTML(string=html_str).write_pdf()
+
+    # 4) Retornar o PDF como download
+    return send_file(
+        io.BytesIO(pdf_file),
+        as_attachment=True,
+        download_name='proposta.pdf',
+        mimetype='application/pdf'
+    )
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
 # Modelo da proposta
 class Proposal(db.Model):
