@@ -2,8 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import os
 
-from flask import Flask, render_template, ...
-
 app = Flask(__name__)
 
 @app.route('/pedido', methods=['GET'])
