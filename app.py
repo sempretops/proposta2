@@ -2,6 +2,14 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import os
 
+from flask import Flask, render_template, ...
+
+app = Flask(__name__)
+
+@app.route('/pedido', methods=['GET'])
+def pedido_form():
+    return render_template('pedido_form.html')
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
