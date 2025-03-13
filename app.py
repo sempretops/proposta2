@@ -7,58 +7,12 @@ import os
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 
-@app.route('/')
-def index():
-    return render_template('index.html')  # Seu formulário
-
-@app.route('/gerar_pdf', methods=['POST'])
-def gerar_pdf():
-    # 1) Capturar dados do formulário
-    empresa = request.form['empresa']
-    cnpj = request.form['cnpj']
-    ie = request.form['ie']
-    nome_contato = request.form['nome_contato']
-    email = request.form['email']
-    telefone = request.form['telefone']
-
-    descricao = request.form['descricao']
-    quantidade = request.form['quantidade']
-    unidade = request.form['unidade']
-    valor_unitario = request.form['valor_unitario']
-    valor_total = request.form['valor_total']
-
-    # 2) Renderizar um template HTML (ex: pdf_template.html) com esses dados
-    html_str = render_template('pdf_template.html',
-        empresa=empresa,
-        cnpj=cnpj,
-        ie=ie,
-        nome_contato=nome_contato,
-        email=email,
-        telefone=telefone,
-        descricao=descricao,
-        quantidade=quantidade,
-        unidade=unidade,
-        valor_unitario=valor_unitario,
-        valor_total=valor_total
-    )
-
-    # 3) Converter HTML em PDF usando WeasyPrint
-    pdf_file = HTML(string=html_str).write_pdf()
-
-    # 4) Retornar o PDF como download
-    return send_file(
-        io.BytesIO(pdf_file),
-        as_attachment=True,
-        download_name='proposta.pdf',
-        mimetype='application/pdf'
-    )
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
-# Modelo da proposta
+# ------------------------------------------------------
+# 1. Definimos o modelo da proposta
+# ------------------------------------------------------
 class Proposal(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     number = db.Column(db.String(20), unique=True, nullable=False)
@@ -71,12 +25,18 @@ class Proposal(db.Model):
     unit_price = db.Column(db.Float, nullable=False)
     total_price = db.Column(db.Float, nullable=False)
 
-# Cria o banco e as tabelas assim que o app é carregado
+# ------------------------------------------------------
+# 2. Criamos as tabelas ao carregar a aplicação
+# ------------------------------------------------------
 with app.app_context():
     db.create_all()
 
+# ------------------------------------------------------
+# 3. Rotas relacionadas ao CRUD de Proposals
+# ------------------------------------------------------
 @app.route('/')
 def index():
+    """Lista as propostas salvas no banco."""
     proposals = Proposal.query.all()
     return render_template('index.html', proposals=proposals)
 
@@ -107,6 +67,7 @@ def add_proposal():
         db.session.add(new_proposal)
         db.session.commit()
         return redirect(url_for('index'))
+
     return render_template('form.html')
 
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
@@ -135,5 +96,54 @@ def delete_proposal(id):
     db.session.commit()
     return redirect(url_for('index'))
 
+# ------------------------------------------------------
+# 4. Rota para gerar PDF a partir de dados de um formulário
+#    (sem salvar no banco, apenas gerando PDF na hora)
+# ------------------------------------------------------
+@app.route('/gerar_pdf', methods=['POST'])
+def gerar_pdf():
+    # Captura dados do formulário "index.html" ou outro:
+    empresa = request.form['empresa']
+    cnpj = request.form['cnpj']
+    ie = request.form['ie']
+    nome_contato = request.form['nome_contato']
+    email = request.form['email']
+    telefone = request.form['telefone']
+    descricao = request.form['descricao']
+    quantidade = request.form['quantidade']
+    unidade = request.form['unidade']
+    valor_unitario = request.form['valor_unitario']
+    valor_total = request.form['valor_total']
+
+    # Renderiza um template HTML com esses dados
+    html_str = render_template(
+        'pdf_template.html',
+        empresa=empresa,
+        cnpj=cnpj,
+        ie=ie,
+        nome_contato=nome_contato,
+        email=email,
+        telefone=telefone,
+        descricao=descricao,
+        quantidade=quantidade,
+        unidade=unidade,
+        valor_unitario=valor_unitario,
+        valor_total=valor_total
+    )
+
+    # Converte HTML em PDF com WeasyPrint
+    pdf_file = HTML(string=html_str).write_pdf()
+
+    # Retorna PDF como download
+    return send_file(
+        io.BytesIO(pdf_file),
+        as_attachment=True,
+        download_name='proposta.pdf',
+        mimetype='application/pdf'
+    )
+
+# ------------------------------------------------------
+# 5. Executa a aplicação localmente
+# ------------------------------------------------------
 if __name__ == '__main__':
     app.run(debug=True)
