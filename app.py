@@ -152,11 +152,13 @@ def gerar_pdf():
     # Gerar PDF
     pdf_file = HTML(string=html_str).write_pdf()
 
-    return send_file(
-        io.BytesIO(pdf_file),
-        as_attachment=True,
-        download_name='proposta.pdf',
-        mimetype='application/pdf'
+    nome_arquivo = f"{empresa.replace(' ', '_')}_{datetime.now().strftime('%d%b_%Y').lower()}.pdf"
+
+return send_file(
+    io.BytesIO(pdf_file),
+    as_attachment=True,
+    download_name=nome_arquivo,
+    mimetype='application/pdf'
     )
 
 # ------------------------------------------------------
