@@ -144,7 +144,9 @@ def gerar_pdf():
         valor_total=valor_total_geral,
         periodo=periodo_final,
         data_hoje=data_hoje,
-        data_validade=data_validade
+        data_validade=data_validade,
+        observacao=observacao,
+        vendedor=vendedor
     )
 
     # Gerar PDF
