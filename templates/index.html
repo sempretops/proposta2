@@ -159,5 +159,97 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  function togglePeriodoPersonalizado() {
+    const selectPeriodo = document.getElementById('periodo');
+    const periodoPersonalizado = document.getElementById('periodo_personalizado');
+
+    periodoPersonalizado.classList.toggle('hidden', selectPeriodo.value !== 'Personalizado');
+  }
+
+  function toggleModalidade() {
+    const modalidade = document.getElementById('modalidade').value;
+    const campoPeriodo = document.getElementById('campo-periodo');
+
+    campoPeriodo.classList.toggle('hidden', modalidade !== 'Locação');
+  }
+
+  // Executa na carga inicial da página para garantir estado correto
+  document.addEventListener('DOMContentLoaded', toggleModalidade);
+
+    // Adiciona uma nova linha na tabela
+    function adicionarLinha() {
+      const tabela = document.getElementById('tabela-produtos').querySelector('tbody');
+      const novaLinha = document.createElement('tr');
+
+      novaLinha.innerHTML = 
+        <td>
+          <select name="equipamento[]" onchange="calcularLinha(this)">
+            <option value="Torre de Iluminação a Diesel">Torre de Iluminação a Diesel</option>
+            <option value="Torre de Iluminação Solar">Torre de Iluminação Solar</option>
+            <option value="PMV Móvel">PMV Móvel</option>
+            <option value="Lombada Eletrônica">Lombada Eletrônica</option>
+            <option value="Balança de Sapata">Balança de Sapata</option>
+          </select>
+        </td>
+        <td>
+          <input type="number" name="quantidade[]" value="1" min="1" oninput="calcularLinha(this)">
+        </td>
+        <td>
+          <input type="number" step="any" name="valor_unitario[]" value="0" oninput="calcularLinha(this)">
+        </td>
+        <td>
+          <input type="text" name="valor_total_linha[]" value="0" readonly>
+        </td>
+        <td>
+          <button type="button" class="btn btn-remove" onclick="removerLinha(this)">Remover</button>
+        </td>
+      ;
+      tabela.appendChild(novaLinha);
+    }
+
+    // Remove a linha atual
+    function removerLinha(button) {
+      const row = button.closest('tr');
+      row.remove();
+      calcularTotalGeral();
+    }
+
+    // Calcula o valor total de uma linha e depois o total geral
+    function calcularLinha(element) {
+      const row = element.closest('tr');
+      const qtdInput = row.querySelector('input[name="quantidade[]"]');
+      const unitInput = row.querySelector('input[name="valor_unitario[]"]');
+      const totalInput = row.querySelector('input[name="valor_total_linha[]"]');
+
+      const qtd = parseFloat(qtdInput.value) || 0;
+      const unit = parseFloat(unitInput.value) || 0;
+      const totalLinha = qtd * unit;
+
+      totalInput.value = totalLinha.toFixed(2);
+
+      calcularTotalGeral();
+    }
+
+    // Soma o valor total de todas as linhas
+    function calcularTotalGeral() {
+      const totalInputs = document.querySelectorAll('input[name="valor_total_linha[]"]');
+      let soma = 0;
+      totalInputs.forEach(input => {
+        soma += parseFloat(input.value) || 0;
+      });
+      document.getElementById('valor_total_geral').textContent = soma.toFixed(2);
+    }
+
+    // Dispara quando o usuário clica em "Gerar PDF"
+    // Copiamos o valor total geral para um hidden input
+    function enviarFormulario() {
+      const totalGeral = document.getElementById('valor_total_geral').textContent;
+      document.getElementById('valor_total_geral_input').value = totalGeral;
+      return true; // prossegue com o submit
+    }
+  </script>
+  
 </body>
 </html>
