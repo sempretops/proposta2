@@ -148,7 +148,7 @@ def gerar_pdf():
         data_validade=data_validade,
         observacao=observacao,
         vendedor=vendedor
-        modalidade=request.form.get('modalidade')
+        modalidade=modalidade
     )
 
     # Gerar PDF
