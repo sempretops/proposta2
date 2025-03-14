@@ -120,6 +120,7 @@ def gerar_pdf():
     valor_total_geral = request.form.get('valor_total_geral')
     vendedor = request.form.get('vendedor')
     observacao = request.form.get('observacao')
+    modalidade = request.form.get('modalidade')
 
     # Define período correto
     periodo_final = periodo_personalizado if periodo == 'Personalizado' else periodo
@@ -147,6 +148,7 @@ def gerar_pdf():
         data_validade=data_validade,
         observacao=observacao,
         vendedor=vendedor
+        modalidade=request.form.get('modalidade')
     )
 
     # Gerar PDF
