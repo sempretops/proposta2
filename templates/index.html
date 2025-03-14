@@ -133,7 +133,7 @@
       const tabela = document.getElementById('tabela-produtos').querySelector('tbody');
       const novaLinha = document.createElement('tr');
 
-      novaLinha.innerHTML = 
+      novaLinha.innerHTML = `
         <td>
           <select name="equipamento[]" onchange="calcularLinha(this)">
             <option value="Torre de Iluminação a Diesel">Torre de Iluminação a Diesel</option>
@@ -155,7 +155,7 @@
         <td>
           <button type="button" class="btn btn-remove" onclick="removerLinha(this)">Remover</button>
         </td>
-      ;
+      `;
       tabela.appendChild(novaLinha);
     }
 
