@@ -161,7 +161,7 @@
     // Adiciona uma nova linha na tabela
 function adicionarLinha() {
     const tabela = document.querySelector("#tabela-produtos");
-    const novaLinha = document.createElement('tr');
+    const novaLinha = document.createElement("tr");
 
     novaLinha.innerHTML = `
       <td>
@@ -171,13 +171,14 @@ function adicionarLinha() {
           <option value="PMV Móvel">PMV Móvel</option>
           <option value="Lombada Eletrônica">Lombada Eletrônica</option>
           <option value="Balança de Sapata">Balança de Sapata</option>
+          <option value="Semáforo com Cancela">Semáforo com Cancela</option>
         </select>
       </td>
       <td>
         <input type="number" class="form-control" name="quantidade[]" value="1" min="1" oninput="calcularLinha(this)">
       </td>
       <td>
-        <input type="text" class="form-control" name="valor_unitario[]" value="0" oninput="calcularLinha(this)">
+        <input type="number" class="form-control" name="valor_unitario[]" value="0" min="0" step="1" oninput="calcularLinha(this)">
       </td>
       <td>
         <input type="text" class="form-control" name="valor_total_linha[]" value="0" readonly>
@@ -191,52 +192,54 @@ function adicionarLinha() {
     novaLinha.scrollIntoView({ behavior: "smooth", block: "end" });
 }
 
+// Remove a linha da tabela
+function removerLinha(button) {
+    const row = button.closest("tr");
+    if (row) {
+        row.remove();
+        calcularTotalGeral(); // Atualiza o total após remoção
+    }
+}
+
+// Calcula o valor total de uma linha
 function calcularLinha(element) {
-    const row = element.closest('tr');
+    const row = element.closest("tr");
     const qtdInput = row.querySelector('input[name="quantidade[]"]');
     const unitInput = row.querySelector('input[name="valor_unitario[]"]');
     const totalInput = row.querySelector('input[name="valor_total_linha[]"]');
 
-    let qtd = parseFloat(qtdInput.value) || 0;
-    let unit = parseFloat(unitInput.value.replace(/\./g, '').replace(',', '.')) || 0;
+    let qtd = parseInt(qtdInput.value) || 0;
+    let unit = parseFloat(unitInput.value) || 0;
     let totalLinha = qtd * unit;
 
-    unitInput.value = formatarNumero(unit);
     totalInput.value = formatarNumero(totalLinha);
 
     calcularTotalGeral();
 }
 
+// Soma todos os valores das linhas e exibe o total geral
 function calcularTotalGeral() {
     const totalInputs = document.querySelectorAll('input[name="valor_total_linha[]"]');
     let soma = 0;
+    
     totalInputs.forEach(input => {
-        soma += parseFloat(input.value.replace(/\./g, '').replace(',', '.')) || 0;
+        soma += parseInt(input.value.replace(/\./g, '')) || 0;
     });
 
-    document.getElementById('valor_total_geral').textContent = formatarNumero(soma);
+    document.getElementById("valor_total_geral").textContent = formatarNumero(soma);
 }
 
-// Formata os valores corretamente com pontos nos milhares e sem casas decimais
+// Formata valores com ponto nos milhares e sem casas decimais
 function formatarNumero(numero) {
-    return numero.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    return numero.toLocaleString("pt-BR", { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 }
 
-    // Dispara quando o usuário clica em "Gerar PDF"
-    // Copiamos o valor total geral para um hidden input
-    function enviarFormulario() {
-      const totalGeral = document.getElementById('valor_total_geral').textContent;
-      document.getElementById('valor_total_geral_input').value = totalGeral;
-      return true; // prossegue com o submit
-    }
-
-
-  function removerLinha(button) {
-    const row = button.closest('tr'); // Captura a linha (tr) mais próxima do botão clicado
-    if (row) {
-        row.remove(); // Remove a linha da tabela
-        calcularTotalGeral(); // Atualiza o total geral
-    }
+// Copia o valor total geral para um campo hidden antes de enviar o formulário
+function enviarFormulario() {
+    const totalGeral = document.getElementById("valor_total_geral").textContent;
+    document.getElementById("valor_total_geral_input").value = totalGeral;
+    return true; // Prossegue com o submit
+}
     
   </script>
 </body>
