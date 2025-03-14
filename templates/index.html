@@ -9,15 +9,39 @@
     body {
       margin: 20px;
       font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+    }
+    .container {
+      max-width: 800px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
     .hidden {
       display: none !important;
     }
-</style>
+    .table th, .table td {
+      vertical-align: middle;
+      text-align: center;
+    }
+    .btn-add {
+      width: 100%;
+    }
+    .form-group label {
+      font-weight: bold;
+    }
+    .valor-total-container {
+      text-align: right;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
 <div class="container">
-  <h1>Orçamento em PDF</h1>
+  <h2 class="text-center">Orçamento em PDF</h2>
   <form action="/gerar_pdf" method="POST" onsubmit="return enviarFormulario()">
 
     <!-- Modalidade -->
@@ -38,18 +62,18 @@
         <option value="30 dias">30 dias</option>
         <option value="Personalizado">Personalizado...</option>
       </select>
-      <input type="text" id="periodo_personalizado" name="periodo_personalizado" class="form-control hidden" placeholder="Ex.: 45 dias">
+      <input type="text" id="periodo_personalizado" name="periodo_personalizado" class="form-control hidden mt-2" placeholder="Ex.: 45 dias">
     </div>
 
     <!-- Tabela de Produtos -->
     <table class="table table-bordered" id="tabela-produtos">
-      <thead>
+      <thead class="table-light">
         <tr>
           <th>Equipamento</th>
-          <th>Quantidade</th>
+          <th>Qtd</th>
           <th>Valor Unit. (R$)</th>
           <th>Valor Total (R$)</th>
-          <th>Ações</th>
+          <th>Ação</th>
         </tr>
       </thead>
       <tbody>
@@ -64,32 +88,28 @@
             </select>
           </td>
           <td><input class="form-control" type="number" name="quantidade[]" value="1" oninput="calcularLinha(this)"></td>
-          <td><input type="number" step="any" name="valor_unitario[]" value="0" oninput="calcularLinha(this)"></td>
-          <td><input type="text" name="valor_total_linha[]" value="0" readonly></td>
-          <td><button type="button" class="btn btn-danger" onclick="removerLinha(this)">Remover</button></td>
+          <td><input class="form-control" type="number" step="any" name="valor_unitario[]" value="0" oninput="calcularLinha(this)"></td>
+          <td><input class="form-control" type="text" name="valor_total_linha[]" value="0" readonly></td>
+          <td><button type="button" class="btn btn-danger btn-sm" onclick="removerLinha(this)">X</button></td>
         </tr>
       </tbody>
     </table>
-    <button type="button" class="btn btn-primary" onclick="adicionarLinha()">Adicionar Produto</button>
+    <button type="button" class="btn btn-primary btn-add" onclick="adicionarLinha()">Adicionar Produto</button>
 
-    <div class="mt-3"><strong>Valor Total Geral:</strong> R$ <span id="valor_total_geral">0.00</span></div>
+    <div class="valor-total-container">Total: R$ <span id="valor_total_geral">0.00</span></div>
 
-    <div class="form-group">
+    <!-- Informações do Cliente -->
+    <div class="mt-4">
       <label>Empresa:</label>
       <input type="text" class="form-control" name="empresa">
-
       <label>CNPJ/CPF:</label>
       <input type="text" class="form-control" name="cnpj">
-
       <label>Nome do Contato:</label>
       <input type="text" class="form-control" name="nome_contato">
-
       <label>E-mail:</label>
       <input type="email" class="form-control" name="email">
-
       <label>Telefone:</label>
       <input type="text" class="form-control" name="telefone">
-
       <label>Vendedor:</label>
       <select class="form-control" name="vendedor">
         <option>Sara</option>
@@ -97,19 +117,17 @@
         <option>Caetana</option>
         <option>Luiz</option>
       </select>
-
       <label>Observação:</label>
-      <textarea class="form-control" name="observacao" rows="4"></textarea>
+      <textarea class="form-control" name="observacao" rows="3"></textarea>
     </div>
 
     <input type="hidden" id="valor_total_geral_input" name="valor_total_geral">
-
-    <button type="submit" class="btn btn-primary">Gerar PDF</button>
+    <button type="submit" class="btn btn-success w-100 mt-3">Gerar PDF</button>
   </form>
 </div>
 
-<!-- JS do Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
 <script>
   function togglePeriodoPersonalizado() {
     const selectPeriodo = document.getElementById('periodo');
