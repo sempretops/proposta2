@@ -4,27 +4,21 @@
   <meta charset="utf-8">
   <title>Proposta de Locação</title>
   <style>
-    /* Forçar modo paisagem em A4 */
     @page {
       size: A4 landscape;
       margin: 20mm;
     }
-
-    /* Reset básico */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
       font-family: Arial, sans-serif;
-      font-size: 12px;
+      font-size: 14px;
       color: #000;
       line-height: 1.3;
     }
-
-    /* Cabeçalho */
     .header {
       text-align: left;
       margin-bottom: 10px;
@@ -34,31 +28,25 @@
       margin-bottom: 5px;
     }
     .address {
-      font-size: 10px;
+      font-size: 12px;
       margin-bottom: 5px;
     }
     .title {
-      font-size: 14px;
+      font-size: 19px;
       font-weight: bold;
       margin-top: 10px;
       margin-bottom: 15px;
       text-align: center;
     }
-
-    /* Linha divisória */
     hr {
       margin: 10px 0;
     }
-
-    /* Bloco info */
     .info-block {
       margin-bottom: 10px;
     }
     .info-block span.label {
       font-weight: bold;
     }
-
-    /* Tabela de produtos/serviços */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -74,33 +62,25 @@
     th {
       background-color: #f2f2f2;
     }
-
-    /* Observações, condições */
     .obs {
       margin: 10px 0;
     }
     .obs .label {
       font-weight: bold;
     }
-
-    /* Termo de responsabilidade */
     .termo {
       margin-top: 15px;
       font-size: 11px;
     }
-
-    /* Rodapé */
     .footer {
       margin-top: 15px;
       text-align: right;
       font-size: 12px;
     }
-
   </style>
 </head>
 <body>
 
-  <!-- Cabeçalho com logo e endereço -->
   <div class="header">
     <img src="https://revlo.com.br/wp-content/uploads/2024/07/Logo-transparente-vermelho.png" alt="Logo Revlo" width="350">
     <div class="address">
@@ -110,16 +90,13 @@
     <div class="title">ORÇAMENTO</div>
   </div>
 
-  <!-- Dados fixos + datas -->
   <div class="info-block">
-    <!-- Removemos o Nº da Proposta -->
     <span class="label">Data da Proposta:</span> {{ data_hoje }}<br>
     <span class="label">Validade da Proposta:</span> {{ data_validade }}
   </div>
 
   <hr>
 
-  <!-- Dados da Empresa / Cliente -->
   <div class="info-block">
     <span class="label">EMPRESA:</span> {{ empresa }}<br>
     <span class="label">CNPJ / CPF:</span> {{ cnpj }}<br>
@@ -131,7 +108,6 @@
 
   <hr>
 
-  <!-- Detalhamento do pedido -->
   <table>
     <thead>
       <tr>
@@ -153,23 +129,27 @@
     </tbody>
   </table>
 
-  <!-- Observações etc. -->
   <div class="obs">
-    <span class="label"><td> {{ observacao }}</td></span><br>
-    <!-- Se quiser alguma observação extra, insira aqui. -->
+    <span class="label">Observação:</span><br>
+    {{ observacao|default('Nenhuma observação adicional.') }}<br><br>
 
-    <br><br>
     <span class="label">VALOR TOTAL:</span> R$ {{ valor_total }}<br>
-    <span class="label">PERÍODO DA LOCAÇÃO:</span>  {{ periodo }}<br>
+
+    <span class="label">MODALIDADE:</span>
+    {% if modalidade == 'Venda' %}
+      Venda
+    {% else %}
+      Locação ({{ periodo }})
+    {% endif %}
+    <br>
+
     <span class="label">VENDEDOR:</span> {{ vendedor }}
   </div>
 
-  <!-- Termo de responsabilidade -->
   <div class="termo">
     <strong>Sujeito à disponibilidade do equipamento.</strong><br>
   </div>
 
-  <!-- Rodapé (removido frete) -->
   <div class="footer">
     BARUERI, {{ data_hoje }}
   </div>
