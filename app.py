@@ -118,6 +118,8 @@ def gerar_pdf():
     email = request.form.get('email')
     telefone = request.form.get('telefone')
     valor_total_geral = request.form.get('valor_total_geral')
+    vendedor = request.form.get('vendedor')
+    observacao = request.form.get('observacao')
 
     # Define período correto
     periodo_final = periodo_personalizado if periodo == 'Personalizado' else periodo
