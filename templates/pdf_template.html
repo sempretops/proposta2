@@ -102,7 +102,7 @@
 
   <!-- Cabeçalho com logo e endereço -->
   <div class="header">
-    <img src="https://revlo-en.com/wp-content/uploads/2024/08/cropped-REVLO-LOGOTIPO-fundo-branco.png" alt="Logo Revlo">
+    <img src="https://revlo.com.br/wp-content/uploads/2024/07/Logo-transparente-vermelho.png" alt="Logo Revlo" width="350">
     <div class="address">
       AVENIDA CALIL MOHAMED RAHAL, 730<br>
       VILA SÃO SILVESTRE - BARUERI / SP - CEP: 06417-010
@@ -155,20 +155,17 @@
 
   <!-- Observações etc. -->
   <div class="obs">
-    <span class="label">OBS:</span><br>
+    <span class="label"><td>{{ observacao[i] }}</td></span><br>
     <!-- Se quiser alguma observação extra, insira aqui. -->
 
     <br><br>
     <span class="label">VALOR TOTAL:</span> R$ {{ valor_total }}<br>
-    <span class="label">COND. PAGTO:</span> [exemplo: 1 parcela]<br>
-    <span class="label">VENDEDOR:</span> [Nome do vendedor ou fixo]
+    <span class="label">VENDEDOR:</span> {{ vendedor[i] }}
   </div>
 
   <!-- Termo de responsabilidade -->
   <div class="termo">
-    <strong>TERMO DE RESPONSABILIDADE</strong><br>
-    Ao assinar este orçamento o cliente concorda e confirma estar ciente das informações aqui citadas. Um simples “de acordo” poderá ser utilizado como forma de assinatura, por parte do cliente.<br><br>
-    Sujeito à disponibilidade do equipamento.
+    <strong>Sujeito à disponibilidade do equipamento.</strong><br>
   </div>
 
   <!-- Rodapé (removido frete) -->
