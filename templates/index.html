@@ -12,9 +12,9 @@
       background-color: #f8f9fa;
     }
     .container {
-      max-width: 800px;
+      max-width: 900px;
       background: #fff;
-      padding: 20px;
+      padding: 25px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
@@ -30,18 +30,27 @@
     }
     .form-group label {
       font-weight: bold;
+      margin-top: 10px;
     }
     .valor-total-container {
       text-align: right;
       font-size: 1.2rem;
       font-weight: bold;
-      margin-top: 10px;
+      margin-top: 15px;
+    }
+    .btn-remove {
+      background-color: #dc3545;
+      color: #fff;
+      border: none;
+    }
+    .btn-remove:hover {
+      background-color: #c82333;
     }
   </style>
 </head>
 <body>
 <div class="container">
-  <h2 class="text-center">Orçamento em PDF</h2>
+  <h2 class="text-center mb-4">Orçamento em PDF</h2>
   <form action="/gerar_pdf" method="POST" onsubmit="return enviarFormulario()">
 
     <!-- Modalidade -->
@@ -66,37 +75,39 @@
     </div>
 
     <!-- Tabela de Produtos -->
-    <table class="table table-bordered" id="tabela-produtos">
-      <thead class="table-light">
-        <tr>
-          <th>Equipamento</th>
-          <th>Qtd</th>
-          <th>Valor Unit. (R$)</th>
-          <th>Valor Total (R$)</th>
-          <th>Ação</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <select class="form-control" name="equipamento[]" onchange="calcularLinha(this)">
-              <option>Torre de Iluminação a Diesel</option>
-              <option>Torre de Iluminação Solar</option>
-              <option>PMV Móvel</option>
-              <option>Lombada Eletrônica</option>
-              <option>Balança de Sapata</option>
-            </select>
-          </td>
-          <td><input class="form-control" type="number" name="quantidade[]" value="1" oninput="calcularLinha(this)"></td>
-          <td><input class="form-control" type="number" step="any" name="valor_unitario[]" value="0" oninput="calcularLinha(this)"></td>
-          <td><input class="form-control" type="text" name="valor_total_linha[]" value="0" readonly></td>
-          <td><button type="button" class="btn btn-danger btn-sm" onclick="removerLinha(this)">X</button></td>
-        </tr>
-      </tbody>
-    </table>
-    <button type="button" class="btn btn-primary btn-add" onclick="adicionarLinha()">Adicionar Produto</button>
+    <div id="tabela-container">
+      <table class="table table-bordered">
+        <thead class="table-light">
+          <tr>
+            <th>Equipamento</th>
+            <th>Qtd</th>
+            <th>Valor Unit. (R$)</th>
+            <th>Valor Total (R$)</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody id="tabela-produtos">
+          <tr>
+            <td>
+              <select class="form-control" name="equipamento[]" onchange="calcularLinha(this)">
+                <option>Torre de Iluminação a Diesel</option>
+                <option>Torre de Iluminação Solar</option>
+                <option>PMV Móvel</option>
+                <option>Lombada Eletrônica</option>
+                <option>Balança de Sapata</option>
+              </select>
+            </td>
+            <td><input class="form-control" type="number" name="quantidade[]" value="1" oninput="calcularLinha(this)"></td>
+            <td><input class="form-control" type="number" step="1" name="valor_unitario[]" value="0" oninput="calcularLinha(this)"></td>
+            <td><input class="form-control" type="text" name="valor_total_linha[]" value="0" readonly></td>
+            <td><button type="button" class="btn btn-remove btn-sm" onclick="removerLinha(this)">X</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" class="btn btn-primary btn-add" onclick="adicionarLinha()">Adicionar Produto</button>
+    </div>
 
-    <div class="valor-total-container">Total: R$ <span id="valor_total_geral">0.00</span></div>
+    <div class="valor-total-container">Total: R$ <span id="valor_total_geral">0</span></div>
 
     <!-- Informações do Cliente -->
     <div class="mt-4">
