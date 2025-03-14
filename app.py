@@ -103,47 +103,44 @@ def delete_proposal(id):
 # ------------------------------------------------------
 @app.route('/gerar_pdf', methods=['POST'])
 def gerar_pdf():
-    # Captura dados do formulário
-    empresa = request.form['empresa']
-    cnpj = request.form['cnpj']
-    ie = request.form['ie']
-    nome_contato = request.form['nome_contato']
-    email = request.form['email']
-    telefone = request.form['telefone']
-    descricao = request.form['descricao']
-    quantidade = request.form['quantidade']
-    unidade = request.form['unidade']
-    valor_unitario = request.form['valor_unitario']
-    valor_total = request.form['valor_total']
-    request.form['periodo']
-    request.form.get('periodo_personalizado')
-    request.form.getlist('equipamento[]')
-    request.form.getlist('quantidade[]')
-    request.form.getlist('valor_unitario[]')
-    request.form.getlist('valor_total_linha[]')
-    request.form['valor_total_geral']
+    # Captura dados do formulário corretamente usando getlist para arrays
+    equipamentos = request.form.getlist('equipamento[]')
+    quantidades = request.form.getlist('quantidade[]')
+    valores_unit = request.form.getlist('valor_unitario[]')
+    valores_linha = request.form.getlist('valor_total_linha[]')
 
-    # Data de hoje e data de validade (7 dias depois)
+    periodo = request.form.get('periodo')
+    periodo_personalizado = request.form.get('periodo_personalizado')
+    empresa = request.form.get('empresa')
+    cnpj = request.form.get('cnpj')
+    ie = request.form.get('ie')
+    nome_contato = request.form.get('nome_contato')
+    email = request.form.get('email')
+    telefone = request.form.get('telefone')
+    valor_total_geral = request.form.get('valor_total_geral')
+
+    # Define período correto
+    periodo_final = periodo_personalizado if periodo == 'Personalizado' else periodo
+
+    # Datas para PDF
     data_hoje = datetime.now().strftime('%d/%m/%Y')
     data_validade = (datetime.now() + timedelta(days=7)).strftime('%d/%m/%Y')
 
-    # Render template HTML
+    # Renderiza HTML corretamente passando todos os dados necessários
     html_str = render_template(
         'pdf_template.html',
-        # Dados do formulário
         empresa=empresa,
         cnpj=cnpj,
         ie=ie,
         nome_contato=nome_contato,
         email=email,
         telefone=telefone,
-        descricao=descricao,
-        quantidade=quantidade,
-        unidade=unidade,
-        valor_unitario=valor_unitario,
-        valor_total=valor_total,
-
-        # Dados fixos e calculados
+        equipamentos=equipamentos,
+        quantidades=quantidades,
+        valores_unit=valores_unit,
+        valores_linha=valores_linha,
+        valor_total=valor_total_geral,
+        periodo=periodo_final,
         data_hoje=data_hoje,
         data_validade=data_validade
     )
