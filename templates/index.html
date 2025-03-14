@@ -229,6 +229,15 @@ function formatarNumero(numero) {
       document.getElementById('valor_total_geral_input').value = totalGeral;
       return true; // prossegue com o submit
     }
+
+
+  function removerLinha(button) {
+    const row = button.closest('tr'); // Captura a linha (tr) mais próxima do botão clicado
+    if (row) {
+        row.remove(); // Remove a linha da tabela
+        calcularTotalGeral(); // Atualiza o total geral
+    }
+    
   </script>
 </body>
 </html>
