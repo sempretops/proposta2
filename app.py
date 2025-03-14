@@ -147,7 +147,7 @@ def gerar_pdf():
         data_hoje=data_hoje,
         data_validade=data_validade,
         observacao=observacao,
-        vendedor=vendedor
+        vendedor=vendedor,
         modalidade=modalidade
     )
 
