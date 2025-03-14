@@ -158,74 +158,67 @@
   document.addEventListener('DOMContentLoaded', toggleModalidade);
 
     // Adiciona uma nova linha na tabela
-    function adicionarLinha() {
-      const tabela = document.getElementById('tabela-produtos').querySelector('tbody');
-      const novaLinha = document.createElement('tr');
+function adicionarLinha() {
+    const tabela = document.getElementById('tabela-produtos').querySelector('tbody');
+    const novaLinha = document.createElement('tr');
 
-      novaLinha.innerHTML = `
-        <td>
-          <select name="equipamento[]" onchange="calcularLinha(this)">
-            <option value="Torre de Iluminação a Diesel">Torre de Iluminação a Diesel</option>
-            <option value="Torre de Iluminação Solar">Torre de Iluminação Solar</option>
-            <option value="PMV Móvel">PMV Móvel</option>
-            <option value="Lombada Eletrônica">Lombada Eletrônica</option>
-            <option value="Balança de Sapata">Balança de Sapata</option>
-          </select>
-        </td>
-        <td>
-          <input type="number" name="quantidade[]" value="1" min="1" oninput="calcularLinha(this)">
-        </td>
-        <td>
-          <input type="number" step="any" name="valor_unitario[]" value="0" oninput="calcularLinha(this)">
-        </td>
-        <td>
-          <input type="text" name="valor_total_linha[]" value="0" readonly>
-        </td>
-        <td>
-          <button type="button" class="btn btn-remove" onclick="removerLinha(this)">Remover</button>
-        </td>
-      `;
-      tabela.appendChild(novaLinha);
-    }
+    novaLinha.innerHTML = `
+      <td>
+        <select class="form-control" name="equipamento[]" onchange="calcularLinha(this)">
+          <option value="Torre de Iluminação a Diesel">Torre de Iluminação a Diesel</option>
+          <option value="Torre de Iluminação Solar">Torre de Iluminação Solar</option>
+          <option value="PMV Móvel">PMV Móvel</option>
+          <option value="Lombada Eletrônica">Lombada Eletrônica</option>
+          <option value="Balança de Sapata">Balança de Sapata</option>
+        </select>
+      </td>
+      <td>
+        <input type="number" class="form-control" name="quantidade[]" value="1" min="1" oninput="calcularLinha(this)">
+      </td>
+      <td>
+        <input type="text" class="form-control" name="valor_unitario[]" value="0" oninput="calcularLinha(this)">
+      </td>
+      <td>
+        <input type="text" class="form-control" name="valor_total_linha[]" value="0" readonly>
+      </td>
+      <td>
+        <button type="button" class="btn btn-danger btn-sm" onclick="removerLinha(this)">X</button>
+      </td>
+    `;
 
-    // Remove a linha atual
-    function removerLinha(button) {
-      const row = button.closest('tr');
-      row.remove();
-      calcularTotalGeral();
-    }
+    tabela.appendChild(novaLinha);
+    novaLinha.scrollIntoView({ behavior: "smooth", block: "end" });
+}
 
-    // Calcula o valor total de uma linha e depois o total geral
 function calcularLinha(element) {
-  const row = element.closest('tr');
-  const qtdInput = row.querySelector('input[name="quantidade[]"]');
-  const unitInput = row.querySelector('input[name="valor_unitario[]"]');
-  const totalInput = row.querySelector('input[name="valor_total_linha[]"]');
+    const row = element.closest('tr');
+    const qtdInput = row.querySelector('input[name="quantidade[]"]');
+    const unitInput = row.querySelector('input[name="valor_unitario[]"]');
+    const totalInput = row.querySelector('input[name="valor_total_linha[]"]');
 
-  let qtd = parseFloat(qtdInput.value) || 0;
-  let unit = parseFloat(unitInput.value.replace(/\./g, '')) || 0; // Remove pontos para evitar erro
-  let totalLinha = qtd * unit;
+    let qtd = parseFloat(qtdInput.value) || 0;
+    let unit = parseFloat(unitInput.value.replace(/\./g, '').replace(',', '.')) || 0;
+    let totalLinha = qtd * unit;
 
-  // Formata os valores corretamente
-  unitInput.value = formatarNumero(unit);
-  totalInput.value = formatarNumero(totalLinha);
+    unitInput.value = formatarNumero(unit);
+    totalInput.value = formatarNumero(totalLinha);
 
-  calcularTotalGeral();
+    calcularTotalGeral();
 }
 
 function calcularTotalGeral() {
-  const totalInputs = document.querySelectorAll('input[name="valor_total_linha[]"]');
-  let soma = 0;
-  totalInputs.forEach(input => {
-    soma += parseFloat(input.value.replace(/\./g, '')) || 0; // Remove pontos para somar corretamente
-  });
+    const totalInputs = document.querySelectorAll('input[name="valor_total_linha[]"]');
+    let soma = 0;
+    totalInputs.forEach(input => {
+        soma += parseFloat(input.value.replace(/\./g, '').replace(',', '.')) || 0;
+    });
 
-  document.getElementById('valor_total_geral').textContent = formatarNumero(soma);
+    document.getElementById('valor_total_geral').textContent = formatarNumero(soma);
 }
 
-// Função para formatar número com ponto em milhar e sem casas decimais
+// Formata os valores corretamente com pontos nos milhares e sem casas decimais
 function formatarNumero(numero) {
-  return numero.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    return numero.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 }
 
     // Dispara quando o usuário clica em "Gerar PDF"
