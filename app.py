@@ -154,7 +154,7 @@ def gerar_pdf():
 
     nome_arquivo = f"{empresa.replace(' ', '_')}_{datetime.now().strftime('%d%b_%Y').lower()}.pdf"
 
-return send_file(
+    return send_file(
     io.BytesIO(pdf_file),
     as_attachment=True,
     download_name=nome_arquivo,
