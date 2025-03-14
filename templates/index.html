@@ -191,17 +191,17 @@ function calcularLinha(element) {
   const unitInput = row.querySelector('input[name="valor_unitario[]"]');
   const totalInput = row.querySelector('input[name="valor_total_linha[]"]');
 
-  const qtd = parseFloat(qtdInput.value) || 0;
-  const unit = parseFloat(unitInput.value) || 0;
-  const totalLinha = qtd * unit;
+  let qtd = parseFloat(qtdInput.value) || 0;
+  let unit = parseFloat(unitInput.value.replace(/\./g, '')) || 0; // Remove pontos para evitar erro
+  let totalLinha = qtd * unit;
 
-  // Formata o valor com ponto em milhar e sem casas decimais
+  // Formata os valores corretamente
+  unitInput.value = formatarNumero(unit);
   totalInput.value = formatarNumero(totalLinha);
 
   calcularTotalGeral();
 }
 
-// Soma o valor total de todas as linhas
 function calcularTotalGeral() {
   const totalInputs = document.querySelectorAll('input[name="valor_total_linha[]"]');
   let soma = 0;
