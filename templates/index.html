@@ -185,30 +185,37 @@
     }
 
     // Calcula o valor total de uma linha e depois o total geral
-    function calcularLinha(element) {
-      const row = element.closest('tr');
-      const qtdInput = row.querySelector('input[name="quantidade[]"]');
-      const unitInput = row.querySelector('input[name="valor_unitario[]"]');
-      const totalInput = row.querySelector('input[name="valor_total_linha[]"]');
+function calcularLinha(element) {
+  const row = element.closest('tr');
+  const qtdInput = row.querySelector('input[name="quantidade[]"]');
+  const unitInput = row.querySelector('input[name="valor_unitario[]"]');
+  const totalInput = row.querySelector('input[name="valor_total_linha[]"]');
 
-      const qtd = parseFloat(qtdInput.value) || 0;
-      const unit = parseFloat(unitInput.value) || 0;
-      const totalLinha = qtd * unit;
+  const qtd = parseFloat(qtdInput.value) || 0;
+  const unit = parseFloat(unitInput.value) || 0;
+  const totalLinha = qtd * unit;
 
-      totalInput.value = totalLinha.toFixed(2);
+  // Formata o valor com ponto em milhar e sem casas decimais
+  totalInput.value = formatarNumero(totalLinha);
 
-      calcularTotalGeral();
-    }
+  calcularTotalGeral();
+}
 
-    // Soma o valor total de todas as linhas
-    function calcularTotalGeral() {
-      const totalInputs = document.querySelectorAll('input[name="valor_total_linha[]"]');
-      let soma = 0;
-      totalInputs.forEach(input => {
-        soma += parseFloat(input.value) || 0;
-      });
-      document.getElementById('valor_total_geral').textContent = soma.toFixed(2);
-    }
+// Soma o valor total de todas as linhas
+function calcularTotalGeral() {
+  const totalInputs = document.querySelectorAll('input[name="valor_total_linha[]"]');
+  let soma = 0;
+  totalInputs.forEach(input => {
+    soma += parseFloat(input.value.replace(/\./g, '')) || 0; // Remove pontos para somar corretamente
+  });
+
+  document.getElementById('valor_total_geral').textContent = formatarNumero(soma);
+}
+
+// Função para formatar número com ponto em milhar e sem casas decimais
+function formatarNumero(numero) {
+  return numero.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}
 
     // Dispara quando o usuário clica em "Gerar PDF"
     // Copiamos o valor total geral para um hidden input
