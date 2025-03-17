@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Tabela de Preços</title>
+  <!-- Link para o Bootstrap (Exemplo com Bootstrap 4) -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css"
+  />
+</head>
+<body>
+
+<div class="container mt-4">
+  <h1 class="mb-4">Tabela de Preços</h1>
+  <table class="table table-bordered table-striped table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Item</th>
+        <th scope="col">30 Dias</th>
+        <th scope="col">15 Dias</th>
+        <th scope="col">7 Dias</th>
+        <th scope="col">1 Dia</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Linha 1 -->
+      <tr>
+        <td>Conjunto de Torre RV 4000 + 4 refletores + 1 carrinho + 1 gerador</td>
+        <td>R$ 3850</td>
+        <td>R$ 3200</td>
+        <td>R$ 2700</td>
+        <td>R$ 2310</td>
+      </tr>
+      <!-- Linha 2 -->
+      <tr>
+        <td>Conjunto de Torre RV 4800 + 8 refletores + 1 carrinho + 1 gerador</td>
+        <td>R$ 4200</td>
+        <td>R$ 3400</td>
+        <td>R$ 2900</td>
+        <td>N/A</td>
+      </tr>
+      <!-- Linha 3 -->
+      <tr>
+        <td>Conjunto de Torre RV 2400 + 4 refletores + 1 carrinho + 1 gerador</td>
+        <td>R$ 2600</td>
+        <td>R$ 1850</td>
+        <td>R$ 1500</td>
+        <td>R$ 1610</td>
+      </tr>
+      <!-- Linha 4 -->
+      <tr>
+        <td>Torre de Monitoramento</td>
+        <td>R$ 6500</td>
+        <td>R$ 5000</td>
+        <td>N/A</td>
+        <td>N/A</td>
+      </tr>
+      <!-- Linha 5 -->
+      <tr>
+        <td>Torre de Iluminação 300W + Monitoramento 3 Câmeras (Câmera Intelbras VHD 5240 B Full Color)</td>
+        <td>R$ 12500</td>
+        <td>R$ 6000</td>
+        <td>N/A</td>
+        <td>N/A</td>
+      </tr>
+      <!-- Linha 6 -->
+      <tr>
+        <td>Torre DeWalt - Bateria</td>
+        <td>R$ 1200</td>
+        <td>R$ 1200</td>
+        <td>N/A</td>
+        <td>N/A</td>
+      </tr>
+      <!-- Linha 7 -->
+      <tr>
+        <td>Torre de Iluminação Fotovoltaica (Solar) 300W (6 refletores 50W)</td>
+        <td>R$ 6000</td>
+        <td>R$ 4500</td>
+        <td>N/A</td>
+        <td>N/A</td>
+      </tr>
+      <!-- Linha 8 -->
+      <tr>
+        <td>Torre RV 2400 sem Gerador</td>
+        <td>R$ 2400</td>
+        <td>R$ 1750</td>
+        <td>R$ 1400</td>
+        <td>N/A</td>
+      </tr>
+      <!-- Linha 9 -->
+      <tr>
+        <td>Painel de Mensagem Acionamento Remoto 1920x960</td>
+        <td>R$ 8500</td>
+        <td>R$ 6000</td>
+        <td>N/A</td>
+        <td>N/A</td>
+      </tr>
+      <!-- Linha 10 -->
+      <tr>
+        <td>Painel de Mensagem Fixo 1920x960</td>
+        <td>R$ 6000</td>
+        <td>N/A</td>
+        <td>N/A</td>
+        <td>N/A</td>
+      </tr>
+      <!-- Linha 11 -->
+      <tr>
+        <td>Painel de Mensagem Acionamento Remoto 96x96</td>
+        <td>R$ 6500</td>
+        <td>N/A</td>
+        <td>N/A</td>
+        <td>N/A</td>
+      </tr>
+      <!-- Linha 12 -->
+      <tr>
+        <td>Lombada Eletrônica Móvel</td>
+        <td>R$ 4800</td>
+        <td>N/A</td>
+        <td>N/A</td>
+        <td>N/A</td>
+      </tr>
+      <!-- Linha 13 -->
+      <tr>
+        <td>Lombada Eletrônica Fixa</td>
+        <td>R$ 4800</td>
+        <td>N/A</td>
+        <td>N/A</td>
+        <td>N/A</td>
+      </tr>
+      <!-- Linha 14 -->
+      <tr>
+        <td>Lombada Eletrônica Móvel com Câmeras</td>
+        <td>R$ 5000</td>
+        <td>N/A</td>
+        <td>N/A</td>
+        <td>N/A</td>
+      </tr>
+      <!-- Linha 15 -->
+      <tr>
+        <td>Gerador 4.5KVA</td>
+        <td>R$ 1500</td>
+        <td>N/A</td>
+        <td>N/A</td>
+        <td>N/A</td>
+      </tr>
+      <!-- Linha 16 -->
+      <tr>
+        <td>PSIM - Painel de Seta 108x208</td>
+        <td>R$ 5500</td>
+        <td>N/A</td>
+        <td>N/A</td>
+        <td>N/A</td>
+      </tr>
+      <!-- Linha 17 -->
+      <tr>
+        <td>Balança Rodoviária 50 Toneladas (Até 6 Eixos)</td>
+        <td>R$ 6500</td>
+        <td>N/A</td>
+        <td>N/A</td>
+        <td>N/A</td>
+      </tr>
+      <!-- Linha 18 -->
+      <tr>
+        <td>Balança Rodoviária para Carretas (Cavalo Trucado e Carreta Toco)</td>
+        <td>R$ 12600</td>
+        <td>N/A</td>
+        <td>N/A</td>
+        <td>N/A</td>
+      </tr>
+      <!-- Linha 19 -->
+      <tr>
+        <td>Semáforo</td>
+        <td>R$ 3800</td>
+        <td>N/A</td>
+        <td>N/A</td>
+        <td>N/A</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Script opcional do Bootstrap (se precisar de componentes JS) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
